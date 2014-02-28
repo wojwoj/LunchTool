@@ -9,15 +9,20 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-	<servlet>
-		<servlet-name>EBookShopQuery</servlet-name>
-		<servlet-class>test.AddUser</servlet-class>
-	</servlet>
- 
- 
+  <servlet>
+    <servlet-name>AddUser</servlet-name>
+    <servlet-class>test.AddUser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddLunchDish</servlet-name>
+    <servlet-class>test.AddLunchDish</servlet-class>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>EBookShopQuery</servlet-name>
-    <url-pattern>/Add</url-pattern>
+    <servlet-name>AddUser</servlet-name>
+    <url-pattern>/AddUser</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+    <servlet-name>AddLunchDish</servlet-name>
+    <url-pattern>/AddLunchDish</url-pattern>
+  </servlet-mapping>
 </web-app>

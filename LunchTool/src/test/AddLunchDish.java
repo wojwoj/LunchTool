@@ -12,26 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lunchtool.LunchDish;
 import com.lunchtool.User;
 
 /**
- * Servlet implementation class AddUser
+ * Servlet implementation class AddLunchDish
  */
-
-@WebServlet("/AddUser")
-public class AddUser extends HttpServlet {
-
-
-	  @PersistenceUnit(unitName = "lunchtool")
-	  private EntityManagerFactory emFactory;
-	
-	
+@WebServlet("/AddLunchDish")
+public class AddLunchDish extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@PersistenceUnit(unitName = "lunchtool")
+	private EntityManagerFactory emFactory;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddUser() {
+	public AddLunchDish() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,28 +38,25 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		 
-	      
-	      PrintWriter out = response.getWriter();
-	     
-	      response.setContentType("text/html");
-	      out.println("<html><head><title>hej how</title></head><body>");
-	      out.println("Hello jak sie masz</body></html>");
-	      out.close();
-	      
-	      User wojtek = new User("wojtek", "wojtek", 6733);
-	      
-	      EntityManager em = null;
-	      
-	      em = emFactory.createEntityManager();
-	      em.getTransaction().begin();
+		PrintWriter out = response.getWriter();
 
-	      em.persist(wojtek);
-	      
-	      em.getTransaction().commit();
-	      em.close();
+		response.setContentType("text/html");
+		out.println("<html><head><title>hej how</title></head><body>");
+		out.println("Lunch Dish Added</body></html>");
+		out.close();
 
-	      System.out.println("wszedl");
+		LunchDish ld = new LunchDish(0, "Pizza",29);
+
+		EntityManager em = null;
+
+		em = emFactory.createEntityManager();
+		em.getTransaction().begin();
+
+		em.persist(ld);
+
+		em.getTransaction().commit();
+		em.close();
+
 	}
 
 	/**
