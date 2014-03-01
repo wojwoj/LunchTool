@@ -1,18 +1,18 @@
 package com.lunchtool;
 
 import java.io.Serializable;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Users")
+@NamedNativeQuery(name = "findUserByID", query = "select * from users s where s.id = :user_id", resultClass = User.class)
+@NamedQuery(name = "findUserrByID", query = "SELECT u.name from User u where u.id = :id")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

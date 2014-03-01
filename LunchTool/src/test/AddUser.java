@@ -3,8 +3,12 @@ package test;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lunchtool.User;
+import com.lunctool.bean.UserUtils;
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 /**
  * Servlet implementation class AddUser
@@ -21,9 +27,9 @@ import com.lunchtool.User;
 @WebServlet("/AddUser")
 public class AddUser extends HttpServlet {
 
-
-	  @PersistenceUnit(unitName = "lunchtool")
-	  private EntityManagerFactory emFactory;
+	@EJB(name = "user")
+	UserUtils userUtils;
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -40,6 +46,7 @@ public class AddUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		 
@@ -53,16 +60,8 @@ public class AddUser extends HttpServlet {
 	      
 	      User wojtek = new User("wojtek", "wojtek", 6733);
 	      
-	      EntityManager em = null;
+	      userUtils.storeUser(wojtek);
 	      
-	      em = emFactory.createEntityManager();
-	      em.getTransaction().begin();
-
-	      em.persist(wojtek);
-	      
-	      em.getTransaction().commit();
-	      em.close();
-
 	      System.out.println("wszedl");
 	}
 
