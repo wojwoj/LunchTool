@@ -11,14 +11,15 @@ import javax.persistence.Table;
 @Entity
 //@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Users")
-@NamedNativeQuery(name = "findUserByID", query = "select * from users s where s.id = :user_id", resultClass = User.class)
-@NamedQuery(name = "findUserrByID", query = "SELECT u.name from User u where u.id = :id")
+//@NamedNativeQuery(name = "findUserByID", query = "select * from users s where s.id = :user_id", resultClass = User.class)
+@NamedQuery(name = "findUserByLogin", query = "SELECT u from User u where u.login = :login")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
 	private String surname;
+	private String login;
 
 	@Id
 	private Integer id;
@@ -27,12 +28,17 @@ public class User implements Serializable {
 
 	}
 
-	public User(String name, String surname, Integer id) {
+	
+
+	public User(String name, String surname, String login, Integer id) {
 		super();
 		this.name = name;
 		this.surname = surname;
+		this.login = login;
 		this.id = id;
 	}
+
+
 
 	public String getName() {
 		return name;

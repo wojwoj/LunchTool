@@ -25,11 +25,19 @@ public class UserUtils {
 	}
 
 	public String findUser() {
-
 		Query query = em.createNamedQuery("findUserrByID");
 		query.setParameter("id", 6733);
 		String u = (String) query.getSingleResult();
 		return u;
+	}
+	
+	public Boolean authenticateUser(String login, String password){
+		
+		Query queryFindUser = em.createNamedQuery("findUserByLogin");
+		queryFindUser.setParameter("login", "wojciech.wojcik");
+		Object obj = queryFindUser.getSingleResult();
+		
+		return null;
 	}
 
 }

@@ -58,7 +58,7 @@ public class AddUser extends HttpServlet {
 	      out.println("Hello jak sie masz</body></html>");
 	      out.close();
 	      
-	      User wojtek = new User("wojtek", "wojtek", 6733);
+	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik", 6733);
 	      
 	      userUtils.storeUser(wojtek);
 	      
