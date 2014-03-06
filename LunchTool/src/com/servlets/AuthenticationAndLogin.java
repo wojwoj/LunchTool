@@ -1,4 +1,4 @@
-package com.servlers;
+package com.servlets;
 
 import java.io.IOException;
 
@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lunctool.bean.UserUtils;
+import com.lunchtool.UserUtils;
+import com.lunchtool.bean.UserUtilsBean;
 
 /**
  * Servlet implementation class AuthenticationAndLogin
  */
 
-@WebServlet("/AuthenticationAndLogin")
+
 public class AuthenticationAndLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +36,17 @@ public class AuthenticationAndLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		
+		if(userUtlis.authenticateUser(login, password))
+		{
+		System.out.println(login + "" + password);
+		response.sendRedirect("http://wp.pl");
+		}else{
+			System.out.println("Access deniaed");
+		}
+			
 	}
 
 }

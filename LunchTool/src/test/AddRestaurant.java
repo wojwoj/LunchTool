@@ -23,7 +23,8 @@ import com.lunchtool.LunchDish;
 import com.lunchtool.LunchMenu;
 import com.lunchtool.Restaurant;
 import com.lunchtool.User;
-import com.lunctool.bean.UserUtils;
+import com.lunchtool.UserUtils;
+import com.lunchtool.bean.UserUtilsBean;
 
 /**
  * Servlet implementation class AddRestaurant

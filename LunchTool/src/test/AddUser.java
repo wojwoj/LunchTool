@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lunchtool.User;
-import com.lunctool.bean.UserUtils;
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
+import com.lunchtool.UserUtils;
+import com.lunchtool.bean.UserUtilsBean;
 /**
  * Servlet implementation class AddUser
  */
@@ -58,7 +51,7 @@ public class AddUser extends HttpServlet {
 	      out.println("Hello jak sie masz</body></html>");
 	      out.close();
 	      
-	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik", 6733);
+	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik","test123", 6733);
 	      
 	      userUtils.storeUser(wojtek);
 	      

@@ -20,6 +20,29 @@ public class User implements Serializable {
 	private String name;
 	private String surname;
 	private String login;
+	private String password;
+
+	public String getLogin() {
+		return login;
+	}
+
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Id
 	private Integer id;
@@ -30,11 +53,17 @@ public class User implements Serializable {
 
 	
 
-	public User(String name, String surname, String login, Integer id) {
+
+
+
+
+	public User(String name, String surname, String login, String password,
+			Integer id) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
+		this.password = password;
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package com.lunctool.bean;
+package com.lunchtool.bean;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -8,14 +8,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.lunchtool.User;
+import com.lunchtool.UserUtils;
 
 @Stateless
-public class UserUtils {
+public class UserUtilsBean implements UserUtils {
 
 	@PersistenceContext(unitName = "lunchtool")
 	EntityManager em;
 
-	public UserUtils() {
+	public UserUtilsBean() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -35,9 +36,20 @@ public class UserUtils {
 		
 		Query queryFindUser = em.createNamedQuery("findUserByLogin");
 		queryFindUser.setParameter("login", "wojciech.wojcik");
-		Object obj = queryFindUser.getSingleResult();
 		
-		return null;
+		try {
+			User u = (User)queryFindUser.getSingleResult();
+			if(u.getPassword().equals(password)){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }
