@@ -48,7 +48,7 @@ public class AuthenticationAndLogin extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("wojwoj", "true");
 		response.sendRedirect("./index.jsp");
-		}else{
+		}else{ 
 			System.out.println("Access deniaed");
 		}
 			
