@@ -31,11 +31,9 @@
 			<div class="span8"></div>
 		</div>
 
-	
-<div class="col-md-6">I'm on the left</div>
-<div class="col-md-6">I'm on the right</div>
 
-
+		<div class="col-md-6">I'm on the left</div>
+		<div class="col-md-6">I'm on the right</div>
 		<form class="navbar-form navbar-left" method="POST" action="./Login">
 			Login:&nbsp;<input class="form-control" type="text" name="login"
 				value="" /><br> Hasło:&nbsp;<input class="form-control"
@@ -43,5 +41,20 @@
 				type="submit" class="btn btn-default" value="Loguj się" />
 		</form>
 	</div>
+	<%
+		if (session.getAttribute("wojwoj") != null) {
+			System.out.println("wszedklem do java");
+			String str = (String) session.getAttribute("wojwoj");
+			System.out.println(str);
+
+			if (str.equals("true")) {
+	%>
+	<div class="alert alert-danger">No Session</div>
+	<%
+	   session.invalidate();
+		}
+		}
+	%>
+
 </body>
 </html>
