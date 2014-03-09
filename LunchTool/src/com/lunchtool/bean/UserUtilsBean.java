@@ -25,12 +25,7 @@ public class UserUtilsBean implements UserUtils {
 		em.persist(user);
 	}
 
-	public String findUser() {
-		Query query = em.createNamedQuery("findUserrByID");
-		query.setParameter("id", 6733);
-		String u = (String) query.getSingleResult();
-		return u;
-	}
+
 	
 	public Boolean authenticateUser(String login, String password){
 		
@@ -50,6 +45,14 @@ public class UserUtilsBean implements UserUtils {
 			return false;
 		}
 		
+	}
+
+	@Override
+	public User findUserByLogin(String login) {
+		Query query = em.createNamedQuery("findUserByLogin");
+		query.setParameter("login", login);
+		User u = (User) query.getSingleResult();
+		return u;
 	}
 
 }

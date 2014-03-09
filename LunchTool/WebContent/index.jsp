@@ -1,3 +1,5 @@
+<%@page import="com.caucho.network.listen.TcpPort.SuspendReaper"%>
+<%@page import="com.lunchtool.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,7 +32,21 @@
 			</div>
 			<div class="span8"></div>
 		</div>
-
+		<%
+			if (request.getSession(false) != null) {
+				
+				System.out.println(request.getRequestURL());
+				User user = (User) session.getAttribute("user");
+				System.out.println(user);
+				if (user == null && request.getRequestURL().toString().equals("http://localhost:8080/LunchTool/index.jsp")) {
+					System.out.println("jest w if");
+		%>
+		<div class="alert alert-danger">Wrong login or password</div>
+		<%
+			session.invalidate();
+				}
+			}
+		%>
 
 		<div class="col-md-6">I'm on the left</div>
 		<div class="col-md-6">I'm on the right</div>
@@ -41,20 +57,5 @@
 				type="submit" class="btn btn-default" value="Loguj się" />
 		</form>
 	</div>
-	<%
-		if (session.getAttribute("wojwoj") != null) {
-			System.out.println("wszedklem do java");
-			String str = (String) session.getAttribute("wojwoj");
-			System.out.println(str);
-
-			if (str.equals("true")) {
-	%>
-	<div class="alert alert-danger">No Session</div>
-	<%
-	   session.invalidate();
-		}
-		}
-	%>
-
 </body>
 </html>

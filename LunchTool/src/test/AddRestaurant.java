@@ -84,7 +84,7 @@ public class AddRestaurant extends HttpServlet {
 //		em.getTransaction().commit();
 //	    em.close();
 	    
-	    userUtils.findUser();
+	    userUtils.findUserByLogin("wojciech.wojcik");
 		
 	}
 

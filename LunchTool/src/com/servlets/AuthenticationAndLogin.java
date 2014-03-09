@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
+import com.lunchtool.User;
 import com.lunchtool.UserUtils;
 import com.lunchtool.bean.UserUtilsBean;
 
@@ -19,12 +20,12 @@ import com.lunchtool.bean.UserUtilsBean;
  * Servlet implementation class AuthenticationAndLogin
  */
 
-
 public class AuthenticationAndLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB(name = "userUtlis")
 	UserUtils userUtlis;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -41,17 +42,18 @@ public class AuthenticationAndLogin extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		
-		if(userUtlis.authenticateUser(login, password))
-		{
-		System.out.println(login + "" + password);
-		HttpSession session = request.getSession(false);
-		session.setAttribute("wojwoj", "true");
-		response.sendRedirect("./index.jsp");
-		}else{ 
-			System.out.println("Access deniaed");
+
+		if (userUtlis.authenticateUser(login, password)) {
+			HttpSession session = request.getSession(true);
+			User user = userUtlis.findUserByLogin(login);
+			session.setAttribute("user", user);
+			response.sendRedirect("http://wp.pl");
+		} else {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", null);
+			response.sendRedirect("./index.jsp");
 		}
-			
+
 	}
 
 }
