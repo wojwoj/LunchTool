@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lunchtool.LunchDish;
+import com.lunchtool.LunchMenu;
+import com.lunchtool.Restaurant;
+import com.lunchtool.RestaurantsUtils;
 import com.lunchtool.User;
 import com.lunchtool.UserUtils;
 import com.lunchtool.bean.UserUtilsBean;
@@ -23,6 +27,8 @@ public class AddUser extends HttpServlet {
 	@EJB(name = "user")
 	UserUtils userUtils;
 	
+	@EJB(name = "restaurant")
+	RestaurantsUtils restaurantsUtils;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -43,7 +49,6 @@ public class AddUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		 
-	      
 	      PrintWriter out = response.getWriter();
 	     
 	      response.setContentType("text/html");
@@ -52,9 +57,17 @@ public class AddUser extends HttpServlet {
 	      out.close();
 	      
 	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik","test123", 6733);
-	      
 	      userUtils.storeUser(wojtek);
 	      
+	      Restaurant gesiPuch = new Restaurant(0,"Czeski Film");
+	      LunchMenu lm = new LunchMenu();
+	      LunchDish ld = new LunchDish(0, "Pierogi", 20);
+	      LunchDish ld1 = new LunchDish(1, "Nalesniki", 25);
+	      
+	      restaurantsUtils.addRestaurant(gesiPuch);
+	      restaurantsUtils.addMenuToResturant(lm, gesiPuch);
+	      restaurantsUtils.addDishToMenu(lm, ld);
+	      restaurantsUtils.addDishToMenu(lm, ld1);
 	      System.out.println("wszedl");
 	}
 

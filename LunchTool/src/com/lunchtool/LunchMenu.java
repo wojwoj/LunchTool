@@ -19,8 +19,6 @@ public class LunchMenu implements Serializable {
 	@Id
 	private int id;
 
-	@OneToOne
-	private Restaurant restaurant;
 	@OneToMany
 	private List<LunchDish> menu = new ArrayList<LunchDish>();
 
@@ -37,14 +35,6 @@ public class LunchMenu implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
 	}
 
 	public List<LunchDish> getMenu() {

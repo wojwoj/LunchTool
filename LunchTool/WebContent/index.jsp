@@ -7,55 +7,59 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
 	name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-<!-- Optional theme -->
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-<title>Insert title here</title>
+<title>LunchTool</title>
 </head>
 <body>
 	<div class="container">
-
 		<div class="row">
 			<div class="span4 offset2">
 				<div class="page-header">
 					<h1>Welcome in Lunch Tool</h1>
 				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="panel-heading">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form class="navbar-form navbar-left" method="POST"
+										action="./Login">
+										<div class="input-group">
+											<span class="input-group-addon">Login</span> <input
+												class="form-control" type="text" name="login" value=""
+												placeholder="Login" /><br>
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">Password</span> <input
+												class="form-control" type="password" name="password"
+												value="" placeholder="Password" />
+										</div>
+										<br> <input type="submit" class="btn btn-default"
+											value="Login" />
+									</form>
+								</div>
+							</div>
+							<%
+								if (session.getAttribute("user") == null) {
+									if (session.getAttribute("message") != null) {
+							%>
+							<div class="alert alert-danger"><%=session.getAttribute("message")%></div>
+							<%
+								session.invalidate();
+									}
+								}
+							%>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="span8"></div>
 		</div>
-		<%
-			if (request.getSession(false) != null) {
-				
-				System.out.println(request.getRequestURL());
-				User user = (User) session.getAttribute("user");
-				System.out.println(user);
-				if (user == null && request.getRequestURL().toString().equals("http://localhost:8080/LunchTool/index.jsp")) {
-					System.out.println("jest w if");
-		%>
-		<div class="alert alert-danger">Wrong login or password</div>
-		<%
-			session.invalidate();
-				}
-			}
-		%>
-
-		<div class="col-md-6">I'm on the left</div>
-		<div class="col-md-6">I'm on the right</div>
-		<form class="navbar-form navbar-left" method="POST" action="./Login">
-			Login:&nbsp;<input class="form-control" type="text" name="login"
-				value="" /><br> Hasło:&nbsp;<input class="form-control"
-				type="password" name="password" value="" /><br> <input
-				type="submit" class="btn btn-default" value="Loguj się" />
-		</form>
 	</div>
 </body>
 </html>

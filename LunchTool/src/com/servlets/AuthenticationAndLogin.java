@@ -51,6 +51,7 @@ public class AuthenticationAndLogin extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", null);
+			session.setAttribute("message", "Wrong login or password");
 			response.sendRedirect("./index.jsp");
 		}
 
