@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,7 +20,7 @@ public class LunchMenu implements Serializable {
 	@Id
 	private int id;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<LunchDish> menu = new ArrayList<LunchDish>();
 
 	public LunchMenu() {

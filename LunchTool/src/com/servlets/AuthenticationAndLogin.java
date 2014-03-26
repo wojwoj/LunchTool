@@ -1,24 +1,22 @@
 package com.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-
+import com.caucho.rewrite.Forward;
+import com.lunchtool.LunchDish;
+import com.lunchtool.Restaurant;
+import com.lunchtool.RestaurantsUtils;
 import com.lunchtool.User;
 import com.lunchtool.UserUtils;
-import com.lunchtool.bean.UserUtilsBean;
-
-/**
- * Servlet implementation class AuthenticationAndLogin
- */
 
 public class AuthenticationAndLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,18 +24,13 @@ public class AuthenticationAndLogin extends HttpServlet {
 	@EJB(name = "userUtlis")
 	UserUtils userUtlis;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	@EJB(name = "restaurantUtlis")
+	RestaurantsUtils restaurantsUtils;
+
 	public AuthenticationAndLogin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
@@ -46,8 +39,21 @@ public class AuthenticationAndLogin extends HttpServlet {
 		if (userUtlis.authenticateUser(login, password)) {
 			HttpSession session = request.getSession(true);
 			User user = userUtlis.findUserByLogin(login);
-			session.setAttribute("user", user);
-			response.sendRedirect("http://wp.pl");
+			Restaurant restaurant = (Restaurant) restaurantsUtils
+					.getRestaurantById(0);
+			List menu = restaurant.getMenu().getMenu();
+			if (menu != null) {
+				HashMap<String, Integer> menuContent = new HashMap<String, Integer>();
+//				for (int i = 0; i < menu.size(); i++) {
+//					menuContent.put(((LunchDish)menu.get(i)).getDishName(),((LunchDish)menu.get(i)).getPrice());
+//				}
+//				// session.setAttribute("menu", menuContent);
+				session.setAttribute("user", user);
+				request.setAttribute("restaurant", restaurant);
+				request.getRequestDispatcher("./OrderForm.jsp").forward(
+						request, response);
+			}
+			// response.sendRedirect("./OrderForm.jsp");
 		} else {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", null);

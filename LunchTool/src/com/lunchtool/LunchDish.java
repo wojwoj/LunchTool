@@ -12,10 +12,34 @@ public class LunchDish implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	String dishName;
-	int price;
+	private String dishName;
+	public String getDishName() {
+		return dishName;
+	}
+
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	private int price;
 	@Id
-	long id;
+	private  long id;
 	
 	public LunchDish(){
 		

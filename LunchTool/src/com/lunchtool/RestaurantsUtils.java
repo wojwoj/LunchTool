@@ -6,5 +6,6 @@ public interface RestaurantsUtils {
 	public void addMenuToResturant(LunchMenu menu, Restaurant restaurant);
 	public void addRestaurant(Restaurant restaurant);
 	public void addOrder(User user, LunchDish dish);
+	public Restaurant getRestaurantById(int restaurantId);
 
 }

@@ -59,7 +59,6 @@ public class RestaurantUtilsBean implements RestaurantsUtils {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addRestaurant(Restaurant restaurant) {
 		em.persist(restaurant);
-		
 	}
 
 	@Override
@@ -67,6 +66,13 @@ public class RestaurantUtilsBean implements RestaurantsUtils {
 	public void addOrder(User user, LunchDish dish) {
 		em.persist(new Order(user, dish));
 		
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Restaurant getRestaurantById(int restaurantId) {
+		Restaurant restaurant = em.find(Restaurant.class, restaurantId);
+		return restaurant;	
 	}
 
 }
