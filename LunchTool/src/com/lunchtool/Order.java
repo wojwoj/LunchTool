@@ -1,15 +1,27 @@
 package com.lunchtool;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import com.caucho.quercus.env.Value;
+import com.caucho.quercus.lib.spl.Serializable;
 
 @Entity
 @Table(name = "Orders" )
-public class Order {
+
+public class Order implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_ID_GEN")
+	@SequenceGenerator(name = "PROFILE_ID_GEN", sequenceName = "PROFILE_ID_SEQ")
 	private int id;
 	@OneToOne
 	private User user;
@@ -50,6 +62,18 @@ public class Order {
 
 	public Order() {
 
+	}
+
+	@Override
+	public Value serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Value unserialize(Value arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

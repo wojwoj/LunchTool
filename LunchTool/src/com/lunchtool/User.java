@@ -52,11 +52,6 @@ public class User implements Serializable {
 	}
 
 	
-
-
-
-
-
 	public User(String name, String surname, String login, String password,
 			Integer id) {
 		super();

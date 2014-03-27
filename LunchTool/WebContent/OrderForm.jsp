@@ -23,7 +23,7 @@
 	%>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="page-header">
 					<div class="panel panel-primary">
 						<div class="panel-body"><%=user.getName().toString()%>
@@ -41,30 +41,51 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<ul class="list-group">
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
 					<%
 						Restaurant res = (Restaurant) request.getAttribute("restaurant");
 						List<LunchDish> menu = res.getMenu().getMenu();
-						for (int i = 0; i < menu.size(); i++) {
 					%>
-					<%
-						out.println("<li class=\"list-group-item\"> <span class=\"badge\">");
-					%>
-					<%=menu.get(i).getPrice()%>
-					<%
-						out.println("</span>");
-					%>
-					<%=menu.get(i).getDishName()%>
-					<%
-						out.println("</li>");
-					%>
-					<%
-						}
-					%>
-				</ul>
+					<div class="panel-heading">
+						Restaurant
+						<%=res.getName()%>
+						Menu
+					</div>
+					<form class="navbar-form" method="GET" action="./OrderService">
+						<ul class="list-group inputs-list">
+							<%
+								for (int i = 0; i < menu.size(); i++) {
+									out.println("<li class=\"list-group-item\"> <span class=\"badge\">");
+							%>
+							<%=menu.get(i).getPrice()%>
+							<%
+								out.println("</span>");
+							%>
+							<%=menu.get(i).getDishName()%>
+							<input type="checkbox" id="dish" name="lunchDish" value="<%=menu.get(i).getId()%>">
+							<%
+								out.println("</li>");
+							%>
+							<%
+								}
+							%>
+						</ul>
+						<br> <input type="submit" class="btn btn-default"
+							value="Order" />
+					</form>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading">Your Order</div>
+					<ul class="list-group inputs-list">
+						<li class=\"list-group-item\">aadas</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
 </body>
 
 </html>
