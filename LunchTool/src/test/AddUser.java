@@ -56,18 +56,24 @@ public class AddUser extends HttpServlet {
 	      out.println("Hello jak sie masz</body></html>");
 	      out.close();
 	      
-	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik","test123", 6733);
+	      User wojtek = new User("wojtek", "wojtek","wojciech.wojcik","test123");
 	      userUtils.storeUser(wojtek);
 	      
 	      Restaurant gesiPuch = new Restaurant(0,"Czeski Film");
 	      LunchMenu lm = new LunchMenu();
 	      LunchDish ld = new LunchDish(0, "Pierogi", 20);
 	      LunchDish ld1 = new LunchDish(1, "Nalesniki", 25);
+	      LunchDish ld2 = new LunchDish(2, "Kapusniak", 23);
+	      LunchDish ld3 = new LunchDish(3, "Mielony", 22);
+	      LunchDish ld4 = new LunchDish(4, "Deser", 11);
 	      
 	      restaurantsUtils.addRestaurant(gesiPuch);
 	      restaurantsUtils.addMenuToResturant(lm, gesiPuch);
 	      restaurantsUtils.addDishToMenu(lm, ld);
 	      restaurantsUtils.addDishToMenu(lm, ld1);
+	      restaurantsUtils.addDishToMenu(lm, ld2);
+	      restaurantsUtils.addDishToMenu(lm, ld3);
+	      restaurantsUtils.addDishToMenu(lm, ld4);
 	      System.out.println("wszedl");
 	}
 

@@ -30,7 +30,7 @@ public class UserUtilsBean implements UserUtils {
 	public Boolean authenticateUser(String login, String password){
 		
 		Query queryFindUser = em.createNamedQuery("findUserByLogin");
-		queryFindUser.setParameter("login", "wojciech.wojcik");
+		queryFindUser.setParameter("login", login);
 		
 		try {
 			User u = (User)queryFindUser.getSingleResult();

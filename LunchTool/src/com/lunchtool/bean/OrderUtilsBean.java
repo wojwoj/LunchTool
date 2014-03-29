@@ -1,5 +1,9 @@
 package com.lunchtool.bean;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -32,8 +36,41 @@ public class OrderUtilsBean implements OrderUtils {
 		Query query = em.createNamedQuery("findLunchDishById");
 		query.setParameter("lunchDishId", lunchId);
 		LunchDish ld = (LunchDish) query.getSingleResult();
-		Order order = new Order(user,ld);
+		Order order = new Order(user, ld);
 		em.persist(order);
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Order> getOrdersByUsedId(int userId) {
+		Query query = em.createNamedQuery("findAllOrdersByUserId");
+		query.setParameter("userId", userId);
+		List<Order> result = (List<Order>)query.getResultList();
+		return result;
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<LunchDish> getOrderedLunchDishes(List<Order> orders) {
+		Query query = em.createNamedQuery("findLunchDishById");
+		
+		List<LunchDish> result;
+		
+//		for (Order order :orders){
+//			query.setParameter("lunchDishId", order.getDish().getId());
+//			result
+//		}
+		
+		return null;
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void removeTodaysOrdersForUser(int user) {
+		Query query = em.createNamedQuery("removeTodaysOrdersForUser");
+		query.setParameter("today", new Date());
+		query.executeUpdate();
+		
 	}
 
 }

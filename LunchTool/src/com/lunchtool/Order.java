@@ -1,35 +1,42 @@
 package com.lunchtool;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedQueries;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import com.caucho.quercus.env.Value;
-import com.caucho.quercus.lib.spl.Serializable;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "Orders" )
 
+@NamedQueries({
+	 @NamedQuery(name ="findAllOrdersByUserId", 
+	          query = "SELECT o from Order o where o.user.id = :userId"),
+	 @NamedQuery(name = "removeTodaysOrdersForUser",   query = "DELETE FROM Order s WHERE s.date < :today")
+	          })
 public class Order implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_ID_GEN")
 	@SequenceGenerator(name = "PROFILE_ID_GEN", sequenceName = "PROFILE_ID_SEQ")
 	private int id;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private User user;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private LunchDish dish;
+	
+	private Date date;
 
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -58,19 +65,18 @@ public class Order implements Serializable {
 		super();
 		this.user = user;
 		this.dish = dish;
+		this.date=new Date();
 	}
 
 	public Order() {
 
 	}
 
-	@Override
 	public Value serialize() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Value unserialize(Value arg0) {
 		// TODO Auto-generated method stub
 		return null;

@@ -2,10 +2,13 @@ package com.lunchtool;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -45,6 +48,8 @@ public class User implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_ID")
+	@SequenceGenerator(name = "PROFILE_ID", sequenceName = "PROFILE_ID_SEQ")
 	private Integer id;
 
 	public User() {
@@ -52,14 +57,12 @@ public class User implements Serializable {
 	}
 
 	
-	public User(String name, String surname, String login, String password,
-			Integer id) {
+	public User(String name, String surname, String login, String password) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.login = login;
 		this.password = password;
-		this.id = id;
 	}
 
 

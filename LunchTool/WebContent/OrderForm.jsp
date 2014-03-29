@@ -26,16 +26,15 @@
 			<div class="col-md-12">
 				<div class="page-header">
 					<div class="panel panel-primary">
-						<div class="panel-body"><%=user.getName().toString()%>
-							<button type="button" class="pull-right btn btn-info">Log
-								out</button>
+						<div class="panel-body">Welcome in LunchTool <%=user.getName().toString()%>
+						<form  class="pull-right" method="POST" action="./Login">
+						<input type="hidden" value="logout" name="action"/>
+						<input type="submit" class="btn btn-default, pull-right btn btn-info"
+							value="Log
+								out" />
+					</form>
 						</div>
 					</div>
-					<h1>
-						Welcome in order form
-						<%=user.getName().toString()%>
-
-					</h1>
 				</div>
 			</div>
 		</div>
@@ -44,7 +43,7 @@
 				<div class="panel panel-default">
 					<!-- Default panel contents -->
 					<%
-						Restaurant res = (Restaurant) request.getAttribute("restaurant");
+						Restaurant res = (Restaurant) session.getAttribute("restaurant");
 						List<LunchDish> menu = res.getMenu().getMenu();
 					%>
 					<div class="panel-heading">
@@ -63,7 +62,8 @@
 								out.println("</span>");
 							%>
 							<%=menu.get(i).getDishName()%>
-							<input type="checkbox" id="dish" name="lunchDish" value="<%=menu.get(i).getId()%>">
+							<input type="checkbox" id="dish" name="lunchDish"
+								value="<%=menu.get(i).getId()%>">
 							<%
 								out.println("</li>");
 							%>
@@ -71,6 +71,7 @@
 								}
 							%>
 						</ul>
+						<input type="hidden" name="action" value="Order">
 						<br> <input type="submit" class="btn btn-default"
 							value="Order" />
 					</form>
@@ -79,10 +80,26 @@
 			<div class="col-md-6">
 				<div class="panel panel-default">
 					<!-- Default panel contents -->
-					<div class="panel-heading">Your Order</div>
-					<ul class="list-group inputs-list">
-						<li class=\"list-group-item\">aadas</li>
-					</ul>
+					<div class="panel-heading">Your Today's Order</div>
+					<form class="navbar-form" method="GET" action="./OrderService">					
+					<%
+						if (session.getAttribute("orders") != null) {
+							out.println("<ul class=\"list-group inputs-list\">");
+							List<Order> orders = (List<Order>) session
+									.getAttribute("orders");
+							for (Order order : orders) {
+								out.println("<li class=\"list-group-item\">");
+								out.println(order.getDish().getDishName());
+								out.println("</li>");
+							}
+							out.println("</ul>");
+						}
+					%>
+					<input type="hidden" name="action" value="Cancel">
+					<br> <input type="submit" class="btn btn-default"
+							value="Cancel" />
+					</form>
+					
 				</div>
 			</div>
 		</div>

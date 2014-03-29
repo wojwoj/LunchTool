@@ -10,6 +10,10 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>RegistrationService</servlet-name>
+    <servlet-class>com.servlets.RegistrationService</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AddUser</servlet-name>
     <servlet-class>test.AddUser</servlet-class>
   </servlet>
@@ -25,6 +29,10 @@
     <servlet-name>AddLunchDish</servlet-name>
     <servlet-class>test.AddLunchDish</servlet-class>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistrationService</servlet-name>
+    <url-pattern>/RegistrationService</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>OrderService</servlet-name>
     <url-pattern>/OrderService</url-pattern>
